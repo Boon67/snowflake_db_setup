@@ -29,13 +29,14 @@ GRANT INSERT, UPDATE, DELETE, TRUNCATE
     TO ROLE IDENTIFIER($database_name || '_READWRITE');
 
 -- =================================================================
--- Grant WRITE on All Existing Stages
+-- Grant READ and WRITE on Stages (must grant together)
 -- =================================================================
 
-GRANT WRITE ON ALL STAGES IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
+-- READ must be granted with WRITE to avoid privilege order violation
+GRANT READ, WRITE ON ALL STAGES IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
     TO ROLE IDENTIFIER($database_name || '_READWRITE');
 
-GRANT WRITE ON FUTURE STAGES IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
+GRANT READ, WRITE ON FUTURE STAGES IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
     TO ROLE IDENTIFIER($database_name || '_READWRITE');
 
 -- =================================================================

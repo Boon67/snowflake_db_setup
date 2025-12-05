@@ -74,19 +74,21 @@ GRANT USAGE ON FUTURE FILE FORMATS IN SCHEMA IDENTIFIER($database_name || '.PUBL
     TO ROLE IDENTIFIER($database_name || '_READONLY');
 
 -- =================================================================
--- Grant MONITOR on Streams and Tasks (view status only)
+-- Grant MONITOR on Tasks and SELECT on Streams
 -- =================================================================
 
-GRANT MONITOR ON ALL STREAMS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
-    TO ROLE IDENTIFIER($database_name || '_READONLY');
-
-GRANT MONITOR ON FUTURE STREAMS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
-    TO ROLE IDENTIFIER($database_name || '_READONLY');
-
+-- MONITOR privilege is only valid for TASKS (not streams)
 GRANT MONITOR ON ALL TASKS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
     TO ROLE IDENTIFIER($database_name || '_READONLY');
 
 GRANT MONITOR ON FUTURE TASKS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
+    TO ROLE IDENTIFIER($database_name || '_READONLY');
+
+-- For STREAMS, grant SELECT to read stream data
+GRANT SELECT ON ALL STREAMS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
+    TO ROLE IDENTIFIER($database_name || '_READONLY');
+
+GRANT SELECT ON FUTURE STREAMS IN SCHEMA IDENTIFIER($database_name || '.PUBLIC') 
     TO ROLE IDENTIFIER($database_name || '_READONLY');
 
 -- =================================================================
